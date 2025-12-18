@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 #
-# for windowns 
+# for windowns
 #
 #
-import os,sys
-import re
-import whois
 import datetime
+import os
+import re
+import sys
 import time
+
 import prettytable as pt
-from progressbar import *
+import whois
+from progressbar import ETA, Bar, Percentage, ProgressBar, Timer
+
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via raw_input() and return their answer.
-    
+
     "question" is a string that is presented to the user.
     "default" is the presumed answer if the user just hits <Enter>.
         It must be "yes" (the default), "no" or None (meaning
@@ -42,7 +45,7 @@ def query_yes_no(question, default="yes"):
         else:
             sys.stdout.write("Please respond with 'yes' or 'no' "\
                              "(or 'y' or 'n').\n")
-                              
+
 def save_file(object):
   tb1 = object
   datapath = 'c:\domin_temp\\'
@@ -50,7 +53,7 @@ def save_file(object):
   if not os.path.exists(datapath):
     os.makedirs(datapath)
   pfile = datapath + filename
-  #file = open(pfile, 'w', encoding = 'UTF-8')  
+  #file = open(pfile, 'w', encoding = 'UTF-8')
   with open(pfile,'w') as file:
     file.write(str(tb1))
   print('已經儲存到 '+filename)
@@ -70,7 +73,7 @@ if not os.path.exists(file):
   print('請建立 Domain_list.txt,跟執行檔同一個目錄即可 ')
   os.system("pause")
   sys.exit()
-  
+
 
 total = 1000
 tb1 = pt.PrettyTable()
@@ -79,7 +82,7 @@ tb1.field_names = ['域名', '到期時間']
 
 with open(file,'r',encoding = 'UTF-8') as fs:
   domains = fs.readlines()
-  domains = [x.rstrip('\n') for x in domains] 
+  domains = [x.rstrip('\n') for x in domains]
 
 i = 1
 pbar = ProgressBar(widgets=widgets, maxval=10*total).start()
